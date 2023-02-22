@@ -1,0 +1,34 @@
+{% load static %}
+<nav id="nav">
+	<ul id="navigation">
+		{% for item in navbar %}
+		<div class="navbar">
+			<li class="nav-{{ item.title }}" data-parent="{{ item.parent }}"><a href="{{ item.address }}">
+				{{ item.title }}</a>
+				<ul class="navbar-parent"></ul>
+			</li>
+		</div>
+		{% endfor %}
+	</ul>
+</nav>
+
+<script>
+	const navEls = document.getElementsByClassName('navbar');
+
+	for (const element of navEls) {
+		
+		const parent = element.childNodes[1].dataset.parent;
+
+		if (!parent) {
+			continue;
+		}
+
+		const htmltext = element.innerHTML;
+		element.innerHTML = '';
+
+		const target = document.querySelector(`.nav-${parent}`).querySelector('.navbar-parent');
+		target.innerHTML += htmltext;
+
+	}
+	
+</script>
